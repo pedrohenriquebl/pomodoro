@@ -15,9 +15,18 @@ const BaseInput = styled.input`
         color: ${props => props.theme['gray-500']};
     }
 
+    &:focus-visible,
     &:focus {
         box-shadow: none;
         border-color: ${props => props.theme['green-500']};
+    }
+
+    &:-webkit-autofill {
+        box-shadow: 0 0 0px 1000px transparent inset !important;
+        -webkit-text-fill-color: ${props => props.theme['gray-100']} !important;
+        transition: background-color 5000s ease-in-out 0s;
+        font-weight: bold;
+        font-size: 1.125rem;
     }
 `
 
