@@ -33,14 +33,26 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
             activeCycleId: null
         },
         (initialState) => {
-            const storedStateAsJSON = localStorage.getItem(
-              '@ignite-timer:cycles-state-1.0.0',
+            const storageStateAsJSON = localStorage.getItem(
+                '@timer:cycles-state-1.0.0'
             )
-      
-            if (storedStateAsJSON) {
-              return JSON.parse(storedStateAsJSON)
+            
+            if (storageStateAsJSON) {
+                try {
+                    const parsedState = JSON.parse(storageStateAsJSON)
+                    return {
+                        cycles: parsedState.cycles || [],
+                        activeCycleId: parsedState.activeCycleId || null
+                    }
+                } catch (error) {
+                    console.error('Error parsing cycles state from localStorage -> ', error)
+                    return {
+                        cycles: [],
+                        activeCycleId: null
+                    }
+                }
             }
-      
+           
             return initialState
         } 
     )
