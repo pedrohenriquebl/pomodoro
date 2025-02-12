@@ -5,6 +5,17 @@ export const HeaderContainer = styled.header`
     align-items: center;
     justify-content: space-between;
 
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+
+        span {
+            font-weight: bold;
+        }
+    }
+
     nav {
         display: flex;
         gap: 0.5rem;
@@ -34,5 +45,9 @@ export const HeaderContainer = styled.header`
                 box-shadow: none;
             }
         }
+
+        img {
+            color: ${props => props.theme['green-500']}
+        }
     }
-`
+` 

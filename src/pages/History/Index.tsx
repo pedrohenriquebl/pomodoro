@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { HistoryContainer, HistoryList, Status } from "./styles";
+import { HistoryContainer, HistoryList, Status, MobileHistoryList } from "./styles";
 import { CyclesContext } from "../../context/CyclesContext";
 import { formatDistanceToNow } from "date-fns";
 import { ptBR } from 'date-fns/locale/pt-BR'
@@ -52,14 +52,15 @@ export function History() {
                     <ul>
                         {cycles.map((cycle) => {
                             return (
-                                <li key={cycle.id}>
-                                    <strong>{cycle.task}</strong>
-                                    <span>{cycle.minutesAmount} minutos</span>
-                                    <span>{formatDistanceToNow(new Date(cycle.startDate), {
+                                <MobileHistoryList key={cycle.id}>
+                                    <span><b>Tarefa:</b> {cycle.task}</span>
+                                    <span><b>Duração:</b> {cycle.minutesAmount} minutos</span>
+                                    <span><b>Início:</b> {formatDistanceToNow(new Date(cycle.startDate), {
                                         addSuffix: true,
                                         locale: ptBR
                                     })}</span>
                                     <span>
+                                    <b>Status:</b>
                                         { cycle.finishedData && (
                                             <Status $statusColor="green">Concluído</Status> 
                                         )}
@@ -70,7 +71,7 @@ export function History() {
                                             <Status $statusColor="yellow">Em andamento</Status> 
                                         )}
                                     </span>
-                                </li>
+                                </MobileHistoryList>
                             )
                         })}
                     </ul>

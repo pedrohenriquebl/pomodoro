@@ -17,6 +17,10 @@ export const HistoryList = styled.div`
     overflow: auto;
     margin-top: 2rem;
 
+    @media (max-width: 768px) {
+        overflow: hidden;
+    }
+
     table {
         width: 100%;
         border-collapse: collapse;
@@ -81,5 +85,28 @@ export const Status = styled.span<StatusProps>`
         height: 0.5rem;
         border-radius: 50%;
         background-color: ${props => props.theme[STATUS_COLORS[props.$statusColor]]};
+    }
+`
+
+export const MobileHistoryList = styled.li`
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #29292E;
+    border-top: 4px solid #202024;
+    padding: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.6rem;
+    border-radius: 8px;
+    gap: 0.75rem;
+
+    strong,
+    span {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        width: 100%;
     }
 `
