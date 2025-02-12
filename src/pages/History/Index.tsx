@@ -12,26 +12,54 @@ export function History() {
             <h1>Meu Histórico</h1>
 
             <HistoryList>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Tarefa</th>
-                            <th>Duração</th>
-                            <th>Início</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                { window.innerWidth > 768 ? (
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tarefa</th>
+                                <th>Duração</th>
+                                <th>Início</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {cycles.map((cycle) => {
+                                return (
+                                    <tr key={cycle.id}>
+                                        <td>{cycle.task}</td>
+                                        <td>{cycle.minutesAmount} minutos</td>
+                                        <td>{formatDistanceToNow(new Date(cycle.startDate), {
+                                            addSuffix: true,
+                                            locale: ptBR
+                                        })}</td>
+                                        <td>
+                                            { cycle.finishedData && (
+                                                <Status $statusColor="green">Concluído</Status> 
+                                            )}
+                                            { cycle.interruptedDate && (
+                                                <Status $statusColor="red">Interrompido</Status> 
+                                            )}
+                                            { !cycle.finishedData  && !cycle.interruptedDate && (
+                                                <Status $statusColor="yellow">Em andamento</Status> 
+                                            )}
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                ): (
+                    <ul>
                         {cycles.map((cycle) => {
                             return (
-                                <tr key={cycle.id}>
-                                    <td>{cycle.task}</td>
-                                    <td>{cycle.minutesAmount} minutos</td>
-                                    <td>{formatDistanceToNow(cycle.startDate, {
+                                <li key={cycle.id}>
+                                    <strong>{cycle.task}</strong>
+                                    <span>{cycle.minutesAmount} minutos</span>
+                                    <span>{formatDistanceToNow(new Date(cycle.startDate), {
                                         addSuffix: true,
                                         locale: ptBR
-                                    })}</td>
-                                    <td>
+                                    })}</span>
+                                    <span>
                                         { cycle.finishedData && (
                                             <Status $statusColor="green">Concluído</Status> 
                                         )}
@@ -41,12 +69,12 @@ export function History() {
                                         { !cycle.finishedData  && !cycle.interruptedDate && (
                                             <Status $statusColor="yellow">Em andamento</Status> 
                                         )}
-                                    </td>
-                                </tr>
+                                    </span>
+                                </li>
                             )
                         })}
-                    </tbody>
-                </table>
+                    </ul>
+                )}
             </HistoryList>
         </HistoryContainer>
     )
